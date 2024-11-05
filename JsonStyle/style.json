@@ -1,0 +1,98 @@
+{
+    "QMainWindow": [
+        {
+            "tittle":"System Monitor"
+
+        }
+    ],
+	"QCustomQStackedWidget":[
+		{
+			"name":"myStackedWidget",
+			"transitionAnimation":[
+				{
+					"fade":[
+						{
+							"active": true,
+							"duration":1000,
+							"easingCurve": "OutBack"
+						}
+					],
+					"slide":[
+						{
+							"active":true,
+							"duration": 1000,
+							"direction": "horizontal",
+							"easingCurve": "OutBack"
+						}
+					]
+				}
+			]
+		}
+	],
+
+    "QCustomSlideMenu": [{
+		"name": "menu_widget",
+		"defaultSize": [{
+			"width": 42,
+			"height": 659
+		}],
+		"collapsedSize": [{
+			"width": 0,
+			"height": 659
+		}],
+		"expandedSize": [{
+			"width": 42,
+			"height": 659
+		}],
+		"toggleButton": [{
+			"buttonName": "open_close_side_bar_btn",
+			"icons": [{
+				"whenMenuIsCollapsed": ":/feather/icons/feather/chevrons-right.png",
+				"whenMenuIsExpanded": ":/feather/icons/feather/chevrons-left.png"
+			}],
+			"style": [{
+				"whenMenuIsCollapsed": [
+					"border: 2px solid transparent"
+				],
+				"whenMenuIsExpanded": [
+					"border: 2px solid rgb(9, 5, 13)"
+				]
+			}]
+		}],
+		"menuTransitionAnimation": [{
+			"animationDuration": 2000,
+			"animationEasingCurve": "Linear",
+			"whenCollapsing": [{
+				"animationDuration": 500,
+				"animationEasingCurve": "Linear"
+			}],
+			"whenExpanding": [{
+				"animationDuration": 500,
+				"animationEasingCurve": "OutInBack"
+			}]
+		}]
+	}],
+    "QSettings": [
+        {
+            "ThemeSettings": [
+                {
+                    "CustomTheme": [
+                        {
+                            "Background-color": "#625d94",
+                            "Text-color": "#fafafa",
+                            "Accent-color": "#1e0880",
+                            "Theme-name": "Dark-Night",
+                            "Default-Theme": true
+                        }
+                    ]
+                }
+            ],
+            "AppSettings": {
+                "OrginizationName": "UrobotSoftware",
+                "ApplicationName": "UrobotSoftware Company",
+                "OrginizationDormain": "Urobotsoftware.sellix.io"
+            }
+        }
+    ]
+
+}
