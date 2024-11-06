@@ -13,6 +13,7 @@ Este projeto é um monitor de sistema em tempo real que utiliza PySide2 para for
 
 - **Python 3.8+**
 - **Bibliotecas Necessárias**:
+  - https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer/releases
   - PySide2
   - GPUtil
   - psutil
