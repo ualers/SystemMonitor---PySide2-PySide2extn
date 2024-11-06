@@ -14,6 +14,8 @@ import subprocess
 import platform
 from firebase_admin import credentials, initialize_app, storage, db, delete_app
 import concurrent.futures
+# import pycuda.driver as cuda
+# import pycuda.autoinit
 
 ########################################################################
 
@@ -117,24 +119,24 @@ class UpdateSystem(QThread):
         return psutil.cpu_percent(interval=0.1)
 
     def get_cuda_utilization(self):
-        return self.run_command([self.nvidia_smi, "--query-gpu=utilization.gpu", "--format=csv,noheader,nounits"])
-    
+        #cuda.Context.synchronize()
+        #device = cuda.Device(0)
+        #utilization = device.get_attribute(cuda.device_attribute.GPU_UTILIZATION)
+        return 0
+
     def get_video_decode_percent(self):
         return self.run_command([self.nvidia_smi, "--query-gpu=utilization.decoder", "--format=csv,noheader,nounits"])
 
     def get_video_encode_percent(self):
-        return self.run_command([self.nvidia_smi, "--query-gpu=encoder.stats.averageFps", "--format=csv,noheader,nounits"])
+        return self.run_command([self.nvidia_smi, "--query-gpu=utilization.encoder", "--format=csv,noheader,nounits"])
 
     def get_gpu_utilization(self):
         try:
-            # Executa o comando nvidia-smi para obter a utilização da GPU em percentual
-            result = subprocess.check_output(
-                [self.nvidia_smi,  "--query-gpu=utilization.gpu", "--format=csv,noheader,nounits"],
-                universal_newlines=True
-            )
-            # Remove espaços em branco e converte para inteiro
-            utilization = result.strip()
-            return utilization
+            gpus = GPUtil.getGPUs()
+            gpu = gpus[0]
+            
+            return gpu.load * 100
+            
         except subprocess.CalledProcessError as e:
             print(f"Erro ao executar nvidia-smi: {e}")
             return 0  # Retorna 0 ou outro valor padrão em caso de erro
@@ -180,7 +182,7 @@ class UpdateSystem(QThread):
 
     def run(self):
         while self.running:
-            time.sleep(1)
+            time.sleep(0.04)
 
             with concurrent.futures.ThreadPoolExecutor() as executor:
                 gpu_name = executor.submit(self.get_gpu_name).result()  
@@ -297,7 +299,6 @@ class MyWidget(QMainWindow):
 
 
         gpu_temperature = metrics.get('gpu_temperature', 0)
-        print(gpu_temperature)
         self.rpb_gpu_temperature.rpb_setTextFormat('Value')
         try:
             self.rpb_gpu_temperature.rpb_setValue(gpu_temperature)
@@ -305,7 +306,6 @@ class MyWidget(QMainWindow):
             pass
 
         video_encode_percent = metrics.get('video_encode_percent', 0)
-        print(video_encode_percent)
         try:
             self.rpb_GPU_encode.rpb_setValue(video_encode_percent)
         except:
@@ -313,7 +313,6 @@ class MyWidget(QMainWindow):
 
 
         video_decode_percent = metrics.get('video_decode_percent', 0)
-        print(video_decode_percent)
         try:
             self.rpb_GPU_DECODE.rpb_setValue(video_decode_percent)
         except:
@@ -321,21 +320,18 @@ class MyWidget(QMainWindow):
 
 
         gpu_utilization = metrics.get('gpu_utilization', 0)
-        print(gpu_utilization)
         try:
-            self.rpb_gpu.rpb_setValue(gpu_utilization)
+            self.rpb_gpu.rpb_setValue(float(gpu_utilization))
         except:
             pass
 
         cuda_utilization = metrics.get('cuda_utilization', 0)
-        print(cuda_utilization)
         try:
             self.rpb_GPU_cuda.rpb_setValue(cuda_utilization)
         except:
             pass
 
         memory_usage_percent_gpu = metrics.get('memory_usage_percent_gpu', 0)
-        print(memory_usage_percent_gpu)
         try:
             self.rpb_GPU_Memory.rpb_setValue(memory_usage_percent_gpu)
         except:
