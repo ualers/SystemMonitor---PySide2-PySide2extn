@@ -1,18 +1,19 @@
-# Monitoramento de Sistema com Interface PySide2
+# System Monitoring with PySide2 Interface
 
-Este projeto é um monitor de sistema em tempo real que utiliza PySide2 para fornecer uma interface gráfica. Ele exibe informações de utilização e desempenho de CPU, GPU e memória, permitindo monitoramento de métricas específicas e ajustáveis para cada componente.
 
-## Funcionalidades
+This project is a real-time system monitor using PySide2 to provide a graphical interface. It displays CPU, GPU, and memory
 
-- **Monitoramento da CPU**: exibe o nome do processador e a porcentagem de uso em tempo real.
-- **Monitoramento da GPU**: exibe o nome da GPU, temperatura, utilização de memória, codificação e decodificação de vídeo, e utilização do CUDA (caso esteja disponível).
-- **Monitoramento de Memória RAM**: exibe o total de RAM disponível e o uso atual em tempo real.
-- **Visualização Gráfica**: utiliza barras de progresso circulares para uma visualização clara e intuitiva das métricas monitoradas.
+## Features
+
+- **CPU Monitoring**: Displays the processor name and real-time usage percentage.
+- **GPU Monitoring**: Displays the GPU name, temperature, memory usage, video encoding and decoding, and CUDA usage (if available).
+- **RAM Monitoring**: Shows the total available RAM and current usage in real-time.
+
   
-## Requisitos
+## Requirements
 
 - **Python 3.8+**
-- **Bibliotecas Necessárias**:
+- **Required Libraries:**:
   - https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer/releases
   - PySide2
   - GPUtil
